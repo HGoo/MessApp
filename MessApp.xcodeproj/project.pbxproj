@@ -8,24 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		DDBC0C1B284638C400E2EF2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */; };
-		DDBC0C1D284638C400E2EF2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1C284638C400E2EF2F /* SceneDelegate.swift */; };
-		DDBC0C1F284638C400E2EF2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1E284638C400E2EF2F /* ViewController.swift */; };
-		DDBC0C22284638C400E2EF2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDBC0C20284638C400E2EF2F /* Main.storyboard */; };
+		DDBC0C1F284638C400E2EF2F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1E284638C400E2EF2F /* AuthViewController.swift */; };
 		DDBC0C25284638C400E2EF2F /* MessApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C23284638C400E2EF2F /* MessApp.xcdatamodeld */; };
 		DDBC0C27284638C500E2EF2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDBC0C26284638C500E2EF2F /* Assets.xcassets */; };
 		DDBC0C2A284638C500E2EF2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDBC0C28284638C500E2EF2F /* LaunchScreen.storyboard */; };
+		DDCF029F28465C3300FCE4A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDCF029E28465C3300FCE4A1 /* GoogleService-Info.plist */; };
+		DDDCAAAF2847406F00784A0E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */; };
+		DDDCAAB12847408400784A0E /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB02847408400784A0E /* ChatsListViewController.swift */; };
+		DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB2284740A100784A0E /* ProfileViewController.swift */; };
+		DDDCAAB5284740D800784A0E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB4284740D800784A0E /* ChatViewController.swift */; };
+		DDDCAAB728474F7E00784A0E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB628474F7E00784A0E /* TabBarController.swift */; };
+		DDDCAAB9284799F400784A0E /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB8284799F400784A0E /* ConversationsViewController.swift */; };
+		DDDCAABD2848EA9400784A0E /* UIStackView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DDBC0C17284638C400E2EF2F /* MessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DDBC0C1C284638C400E2EF2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DDBC0C1E284638C400E2EF2F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DDBC0C21284638C400E2EF2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DDBC0C1E284638C400E2EF2F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		DDBC0C24284638C400E2EF2F /* MessApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessApp.xcdatamodel; sourceTree = "<group>"; };
 		DDBC0C26284638C500E2EF2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDBC0C29284638C500E2EF2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDBC0C2B284638C500E2EF2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDCF029E28465C3300FCE4A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		DDDCAAB02847408400784A0E /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
+		DDDCAAB2284740A100784A0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DDDCAAB4284740D800784A0E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		DDDCAAB628474F7E00784A0E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		DDDCAAB8284799F400784A0E /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +51,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD483C2728465A69000B06CF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				DDBC0C28284638C500E2EF2F /* LaunchScreen.storyboard */,
+				DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */,
+				DDBC0C26284638C500E2EF2F /* Assets.xcassets */,
+				DDCF029E28465C3300FCE4A1 /* GoogleService-Info.plist */,
+				DDBC0C2B284638C500E2EF2F /* Info.plist */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		DDBC0C0E284638C400E2EF2F = {
 			isa = PBXGroup;
 			children = (
@@ -58,16 +82,50 @@
 		DDBC0C19284638C400E2EF2F /* MessApp */ = {
 			isa = PBXGroup;
 			children = (
-				DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */,
-				DDBC0C1C284638C400E2EF2F /* SceneDelegate.swift */,
-				DDBC0C1E284638C400E2EF2F /* ViewController.swift */,
-				DDBC0C20284638C400E2EF2F /* Main.storyboard */,
-				DDBC0C26284638C500E2EF2F /* Assets.xcassets */,
-				DDBC0C28284638C500E2EF2F /* LaunchScreen.storyboard */,
-				DDBC0C2B284638C500E2EF2F /* Info.plist */,
+				DD483C2728465A69000B06CF /* Source */,
+				DDDCAA8828466D8E00784A0E /* Models */,
+				DDDCAA872846663400784A0E /* ViewControllers */,
+				DDDCAABB2848EA6900784A0E /* Extensions */,
 				DDBC0C23284638C400E2EF2F /* MessApp.xcdatamodeld */,
 			);
 			path = MessApp;
+			sourceTree = "<group>";
+		};
+		DDDCAA872846663400784A0E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DDDCAABA2848D75500784A0E /* Login */,
+				DDDCAAB4284740D800784A0E /* ChatViewController.swift */,
+				DDDCAAB02847408400784A0E /* ChatsListViewController.swift */,
+				DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */,
+				DDDCAAB2284740A100784A0E /* ProfileViewController.swift */,
+				DDDCAAB628474F7E00784A0E /* TabBarController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DDDCAA8828466D8E00784A0E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DDDCAABA2848D75500784A0E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DDDCAAB8284799F400784A0E /* ConversationsViewController.swift */,
+				DDBC0C1E284638C400E2EF2F /* AuthViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		DDDCAABB2848EA6900784A0E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +144,8 @@
 			dependencies = (
 			);
 			name = MessApp;
+			packageProductDependencies = (
+			);
 			productName = MessApp;
 			productReference = DDBC0C17284638C400E2EF2F /* MessApp.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +174,8 @@
 				Base,
 			);
 			mainGroup = DDBC0C0E284638C400E2EF2F;
+			packageReferences = (
+			);
 			productRefGroup = DDBC0C18284638C400E2EF2F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -130,7 +192,7 @@
 			files = (
 				DDBC0C2A284638C500E2EF2F /* LaunchScreen.storyboard in Resources */,
 				DDBC0C27284638C500E2EF2F /* Assets.xcassets in Resources */,
-				DDBC0C22284638C400E2EF2F /* Main.storyboard in Resources */,
+				DDCF029F28465C3300FCE4A1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +203,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDBC0C1F284638C400E2EF2F /* ViewController.swift in Sources */,
+				DDDCAAB728474F7E00784A0E /* TabBarController.swift in Sources */,
+				DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */,
+				DDBC0C1F284638C400E2EF2F /* AuthViewController.swift in Sources */,
+				DDDCAABD2848EA9400784A0E /* UIStackView + Extensions.swift in Sources */,
 				DDBC0C25284638C400E2EF2F /* MessApp.xcdatamodeld in Sources */,
+				DDDCAAB5284740D800784A0E /* ChatViewController.swift in Sources */,
+				DDDCAAB12847408400784A0E /* ChatsListViewController.swift in Sources */,
+				DDDCAAB9284799F400784A0E /* ConversationsViewController.swift in Sources */,
+				DDDCAAAF2847406F00784A0E /* FavoritesViewController.swift in Sources */,
 				DDBC0C1B284638C400E2EF2F /* AppDelegate.swift in Sources */,
-				DDBC0C1D284638C400E2EF2F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DDBC0C20284638C400E2EF2F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDBC0C21284638C400E2EF2F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DDBC0C28284638C500E2EF2F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,10 +353,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BN87K5QK52;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MessApp/Info.plist;
+				INFOPLIST_FILE = MessApp/Source/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -321,10 +380,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BN87K5QK52;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MessApp/Info.plist;
+				INFOPLIST_FILE = MessApp/Source/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
