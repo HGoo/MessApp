@@ -9,6 +9,7 @@ import Foundation
 import FirebaseDatabase
 
 final class DataBaseManager {
+    
     static let shared = DataBaseManager()
     
     private let database = Database.database().reference()
@@ -19,11 +20,14 @@ final class DataBaseManager {
 extension DataBaseManager {
     
     public func validateNewUser(with login: String, completion: @escaping ((Bool) -> ())) {
-        database.child(login).observeSingleEvent(of: .value) { snapshot in
-            guard snapshot.value as? String != nil else {
+        database.child(login).child("User_login").observeSingleEvent(of: .value) { snapshot in
+            guard snapshot.value as? String != nil
+            else {
+                print(snapshot.value!)
                 completion(false)
                 return
             }
+            print(snapshot.value!)
             completion(true)
         }
     }

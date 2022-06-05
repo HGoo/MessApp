@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class AuthViewController: UIViewController {
 
@@ -16,11 +17,16 @@ class AuthViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        validateAuth()
+    }
     
-        
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_in")
-        
-        if !isLoggedIn {
+    private func validateAuth() {
+        print(UserDefaults().isLoggedIn())
+        if UserDefaults().isLoggedIn() {
+//            guard let tabbar = UITabBarController().setupTabBar() else { return }
+//            UserDefaults().setLoggedIn(value: true)
+//            self.present(tabbar, animated: true)
+        } else {
             let authVC = LoginViewController()
             let nav = UINavigationController(rootViewController: authVC)
             nav.modalPresentationStyle = .fullScreen

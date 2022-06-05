@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2EB23F28156BEED64916E93F /* Pods_MessApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5970D2B1D97246A3BFEF0 /* Pods_MessApp.framework */; };
+		DD06874D284D4AAF009CC48C /* userDefaults + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */; };
+		DD06874F284D4EF8009CC48C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD06874E284D4EF8009CC48C /* TabBarController.swift */; };
 		DDBC0C1B284638C400E2EF2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */; };
 		DDBC0C1F284638C400E2EF2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1E284638C400E2EF2F /* LoginViewController.swift */; };
 		DDBC0C25284638C400E2EF2F /* MessApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C23284638C400E2EF2F /* MessApp.xcdatamodeld */; };
@@ -28,6 +30,8 @@
 		02D5970D2B1D97246A3BFEF0 /* Pods_MessApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1902EDB7C7685A54049E5A6F /* Pods-MessApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessApp.debug.xcconfig"; path = "Target Support Files/Pods-MessApp/Pods-MessApp.debug.xcconfig"; sourceTree = "<group>"; };
 		32B69A2E93C12B9F83294EAF /* Pods-MessApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessApp.release.xcconfig"; path = "Target Support Files/Pods-MessApp/Pods-MessApp.release.xcconfig"; sourceTree = "<group>"; };
+		DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "userDefaults + Extensions.swift"; sourceTree = "<group>"; };
+		DD06874E284D4EF8009CC48C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDBC0C17284638C400E2EF2F /* MessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDBC0C1E284638C400E2EF2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */,
+				DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */,
+				DD06874E284D4EF8009CC48C /* TabBarController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -278,6 +284,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD06874D284D4AAF009CC48C /* userDefaults + Extensions.swift in Sources */,
+				DD06874F284D4EF8009CC48C /* TabBarController.swift in Sources */,
 				DDDCAAB728474F7E00784A0E /* TabBarController.swift in Sources */,
 				DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */,
 				DDBC0C1F284638C400E2EF2F /* LoginViewController.swift in Sources */,

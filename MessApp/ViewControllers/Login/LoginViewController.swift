@@ -8,9 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
-    
-    
+  
     private let loginTextField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
@@ -71,7 +69,6 @@ class LoginViewController: UIViewController {
                                        spacing: 10,
                                        distribution: .fillProportionally)
         
-        
         view.addSubview(loginLabel)
         view.addSubview(textFieldsStackView)
         view.addSubview(buttonsStackView)
@@ -81,32 +78,7 @@ class LoginViewController: UIViewController {
         loginTextField.delegate = self
     }
     
-    private func setupTabBar() -> UITabBarController? {
-        let tabBarVC = UITabBarController()
-        
-        let chatVC = UINavigationController(rootViewController: ChatsListViewController())
-        let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
-        
-        chatVC.title = "Chats"
-        favoritesVC.title = "Favorites"
-        profileVC.title = "Profile"
-        
-        tabBarVC.setViewControllers([chatVC, favoritesVC, profileVC], animated: false)
-        
-        guard let items = tabBarVC.tabBar.items else { return nil}
-        
-        let images = ["house", "house", "house"]
-        
-        for x in 0..<items.count {
-            items[x].image = UIImage(systemName: images[x])
-        }
-        tabBarVC.tabBar.tintColor = .black
-        
-        tabBarVC.modalPresentationStyle = .fullScreen
-        
-        return tabBarVC
-    }
+    
     
     private func alertUserLoginError(message: String = "Plase enter Username/Login to log in") {
         let alert = UIAlertController(title: "",
@@ -121,7 +93,7 @@ class LoginViewController: UIViewController {
     @objc private func signUpButtonTapped(){
         guard let login = loginTextField.text,
                 !login.isEmpty,
-                login.count >= 3 else {
+                login.count >= 1 else {
             alertUserLoginError()
             return
         }
@@ -129,17 +101,20 @@ class LoginViewController: UIViewController {
         // Firebase login
         DataBaseManager.shared.validateNewUser(with: login) { [weak self] exsists in
             guard let self = self else { return }
-            guard !exsists else {
-                // user already exists
-                self.alertUserLoginError(message: "Пользователь сущщ")
-                return
-            }
+            print(exsists)
+//            guard !exsists else {
+//                // user already exists
+//                self.alertUserLoginError(message: "user already exists")
+//                return
+//            }
             
             DataBaseManager.shared.insertUser(with: ChatAppUser(userLogin: login))
             
             self.loginTextField.resignFirstResponder()
             self.loginTextField.text = nil
-            self.present(self.setupTabBar()!, animated: true)
+//            guard let tabbar = UITabBarController().setupTabBar() else { return }
+//            UserDefaults().setLoggedIn(value: true)
+//            self.present(tabbar, animated: true)
             
         }
         
@@ -149,7 +124,7 @@ class LoginViewController: UIViewController {
     
     
     deinit {
-        print("213123")
+        print("Deinit LoginVC")
     }
 }
 

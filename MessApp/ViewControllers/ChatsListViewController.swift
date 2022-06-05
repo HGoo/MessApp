@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class ChatsListViewController: UIViewController {
 
@@ -15,10 +14,22 @@ class ChatsListViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.5232761502, green: 1, blue: 0.9808334708, alpha: 1)
         //title = "Chats"
         
-        
         // Do any additional setup after loading the view.
+        setupNavigationBar()
     }
     
+    private func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Back",
+            style: .done,
+            target: self,
+            action: #selector(aaa)
+        )
+    }
+    
+    @objc private func aaa() {
+        navigationController?.pushViewController(LoginViewController(), animated: true)
+    }
     
     
 
