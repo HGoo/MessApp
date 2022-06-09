@@ -14,7 +14,6 @@ final class DataBaseManager {
     
     private let database = Database.database().reference()
     
-    
 }
 
 extension DataBaseManager {
@@ -36,11 +35,20 @@ extension DataBaseManager {
     public func insertUser(with user: ChatAppUser) {
         database.child(user.userLogin).setValue(["User_login": user.userLogin])
     }
+
+//    public func insertUser(with user: ChatAppUser, completion: @escaping ((Bool) -> ())) {
+//        database.child(user.userLogin).setValue(["User_login": user.userLogin]) { error, _ in
+//            guard error == nil else {
+//                print("failed to write to database")
+//                completion(false)
+//                return
+//            }
+//            completion(true)
+//        }
+//    }
+
     
 }
 
-struct ChatAppUser {
-    let userLogin: String
-}
 
  

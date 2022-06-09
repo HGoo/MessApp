@@ -8,24 +8,83 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    private let logoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .link
+        button.setTitle("Logout", for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 10
+        button.addTarget( self,
+                         action: #selector(logoutButtonTapped),
+                         for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private let userNameLabel: UILabel = {
+        let lable = UILabel()
+        lable.text = "Name"
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        return lable
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        //title = "Profile"
-        // Do any additional setup after loading the view.
+        setupViews()
+        setConstraints()
+        userNameLabel.text = UserDefaults().getUserLogin()
+    }
+
+    private func setupViews() {
+        view.backgroundColor = .white
+
+
+        view.addSubview(userNameLabel)
+        view.addSubview(logoutButton)
+    }
+
+    @objc private func logoutButtonTapped() {
+        UserDefaults().setLoggedIn(value: false)
+        UserDefaults().setUserLogin(value: "")
+        print(UserDefaults().isLoggedIn(),"Profile")
+        let authVC = UINavigationController(rootViewController: LoginViewController())
+        authVC.modalPresentationStyle = .fullScreen
+        present(authVC, animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    deinit {
+        print("Deinit ProfileVC")
     }
-    */
 
 }
+
+
+//MARK: - Set Constarins
+
+extension ProfileViewController {
+    
+    private func setConstraints() {
+                
+        NSLayoutConstraint.activate([
+            userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            userNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+        ])
+
+      
+
+        NSLayoutConstraint.activate([
+            logoutButton.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
+            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
+
+        ])
+
+
+        
+    }
+}
+

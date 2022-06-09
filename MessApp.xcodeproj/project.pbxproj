@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2EB23F28156BEED64916E93F /* Pods_MessApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D5970D2B1D97246A3BFEF0 /* Pods_MessApp.framework */; };
-		DD06874D284D4AAF009CC48C /* userDefaults + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */; };
+		DD06874D284D4AAF009CC48C /* User Defaults + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD06874C284D4AAF009CC48C /* User Defaults + Extensions.swift */; };
 		DD06874F284D4EF8009CC48C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD06874E284D4EF8009CC48C /* TabBarController.swift */; };
 		DDBC0C1B284638C400E2EF2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */; };
 		DDBC0C1F284638C400E2EF2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC0C1E284638C400E2EF2F /* LoginViewController.swift */; };
@@ -19,18 +19,19 @@
 		DDDCAAB12847408400784A0E /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB02847408400784A0E /* ChatsListViewController.swift */; };
 		DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB2284740A100784A0E /* ProfileViewController.swift */; };
 		DDDCAAB5284740D800784A0E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB4284740D800784A0E /* ChatViewController.swift */; };
-		DDDCAAB728474F7E00784A0E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB628474F7E00784A0E /* TabBarController.swift */; };
 		DDDCAAB9284799F400784A0E /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB8284799F400784A0E /* AuthViewController.swift */; };
 		DDDCAABD2848EA9400784A0E /* UIStackView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */; };
 		DDDCAAC5284A902B00784A0E /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAC4284A902B00784A0E /* DataBaseManager.swift */; };
-		DDDCAAC7284A969600784A0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDDCAAC6284A969600784A0E /* GoogleService-Info.plist */; };
+		DDE2E236284F338E004DBF3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDDCAAC6284A969600784A0E /* GoogleService-Info.plist */; };
+		DDE2E23828522498004DBF3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2E23728522498004DBF3E /* User.swift */; };
+		DDE2E23A285224A1004DBF3E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2E239285224A1004DBF3E /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02D5970D2B1D97246A3BFEF0 /* Pods_MessApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1902EDB7C7685A54049E5A6F /* Pods-MessApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessApp.debug.xcconfig"; path = "Target Support Files/Pods-MessApp/Pods-MessApp.debug.xcconfig"; sourceTree = "<group>"; };
 		32B69A2E93C12B9F83294EAF /* Pods-MessApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessApp.release.xcconfig"; path = "Target Support Files/Pods-MessApp/Pods-MessApp.release.xcconfig"; sourceTree = "<group>"; };
-		DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "userDefaults + Extensions.swift"; sourceTree = "<group>"; };
+		DD06874C284D4AAF009CC48C /* User Defaults + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User Defaults + Extensions.swift"; sourceTree = "<group>"; };
 		DD06874E284D4EF8009CC48C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDBC0C17284638C400E2EF2F /* MessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBC0C1A284638C400E2EF2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,11 +44,12 @@
 		DDDCAAB02847408400784A0E /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		DDDCAAB2284740A100784A0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DDDCAAB4284740D800784A0E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		DDDCAAB628474F7E00784A0E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DDDCAAB8284799F400784A0E /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extensions.swift"; sourceTree = "<group>"; };
 		DDDCAAC4284A902B00784A0E /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		DDDCAAC6284A969600784A0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DDE2E23728522498004DBF3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DDE2E239285224A1004DBF3E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +132,6 @@
 				DDDCAAB02847408400784A0E /* ChatsListViewController.swift */,
 				DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */,
 				DDDCAAB2284740A100784A0E /* ProfileViewController.swift */,
-				DDDCAAB628474F7E00784A0E /* TabBarController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -138,6 +139,8 @@
 		DDDCAA8828466D8E00784A0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DDE2E23728522498004DBF3E /* User.swift */,
+				DDE2E239285224A1004DBF3E /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				DDDCAABC2848EA9400784A0E /* UIStackView + Extensions.swift */,
-				DD06874C284D4AAF009CC48C /* userDefaults + Extensions.swift */,
+				DD06874C284D4AAF009CC48C /* User Defaults + Extensions.swift */,
 				DD06874E284D4EF8009CC48C /* TabBarController.swift */,
 			);
 			path = Extensions;
@@ -229,9 +232,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE2E236284F338E004DBF3E /* GoogleService-Info.plist in Resources */,
 				DDBC0C2A284638C500E2EF2F /* LaunchScreen.storyboard in Resources */,
 				DDBC0C27284638C500E2EF2F /* Assets.xcassets in Resources */,
-				DDDCAAC7284A969600784A0E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,9 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD06874D284D4AAF009CC48C /* userDefaults + Extensions.swift in Sources */,
+				DDE2E23828522498004DBF3E /* User.swift in Sources */,
+				DD06874D284D4AAF009CC48C /* User Defaults + Extensions.swift in Sources */,
 				DD06874F284D4EF8009CC48C /* TabBarController.swift in Sources */,
-				DDDCAAB728474F7E00784A0E /* TabBarController.swift in Sources */,
 				DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */,
 				DDBC0C1F284638C400E2EF2F /* LoginViewController.swift in Sources */,
 				DDDCAABD2848EA9400784A0E /* UIStackView + Extensions.swift in Sources */,
@@ -297,6 +300,7 @@
 				DDDCAAAF2847406F00784A0E /* FavoritesViewController.swift in Sources */,
 				DDBC0C1B284638C400E2EF2F /* AppDelegate.swift in Sources */,
 				DDDCAAC5284A902B00784A0E /* DataBaseManager.swift in Sources */,
+				DDE2E23A285224A1004DBF3E /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

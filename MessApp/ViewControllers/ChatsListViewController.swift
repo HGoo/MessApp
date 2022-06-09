@@ -9,38 +9,112 @@ import UIKit
 
 class ChatsListViewController: UIViewController {
 
+    private let tableView: UITableView = {
+        let table = UITableView()
+        //table.isHidden = true
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "CellChatsList")
+        table.translatesAutoresizingMaskIntoConstraints = false
+
+        return table
+    }()
+    
+    private let noConversationsLabel: UILabel = {
+        let lable = UILabel()
+        lable.text = "NO Conversations!"
+        lable.isHidden = true
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        return lable
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.5232761502, green: 1, blue: 0.9808334708, alpha: 1)
-        //title = "Chats"
         
-        // Do any additional setup after loading the view.
-        setupNavigationBar()
+        setupViews()
+        setupDelegate()
+        setConstraints()
+        fetchonversations()
     }
     
-    private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Back",
-            style: .done,
-            target: self,
-            action: #selector(aaa)
-        )
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //tableView.frame = view.bounds
     }
     
-    @objc private func aaa() {
-        navigationController?.pushViewController(LoginViewController(), animated: true)
+    private func setupViews() {
+        view.addSubview(tableView)
+        view.addSubview(noConversationsLabel)
     }
     
     
+    private func setupDelegate() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        //searchController.searchBar.delegate = self
+    }
+    private func fetchonversations() {
+        tableView.isHidden = false
+    }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+
+//MARK: - UITableViewDataSource
+
+extension ChatsListViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath) //as! AlbumsTableViewCell
+        
+        var content = cell.defaultContentConfiguration()
+        
+        content.text = "GHFJHFssfdfs"
+        
+        cell.contentConfiguration = content
+//        let album = albums[indexPath.row]
+//        cell.configureAlbumCell(album: album)
+        //cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
+}
 
+//MARK: - UITableViewDelegate
+
+extension ChatsListViewController: UITableViewDelegate {
+    
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let detailViewController = DetailAlbumViewController()
+//
+//        let album = albums[indexPath.row]
+//        detailViewController.album = album
+//        detailViewController.title = album.artistName
+//        navigationController?.pushViewController(detailViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let chatVC = ChatViewController()
+        navigationController?.pushViewController(chatVC, animated: true)
+    }
+    
+  
+}
+
+extension ChatsListViewController {
+    
+    private func setConstraints() {
+        
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+    }
 }

@@ -56,6 +56,8 @@ class LoginViewController: UIViewController {
         setConstraints()
     }
     
+    
+    
     private func setupViews() {
         view.backgroundColor = .white
         
@@ -101,7 +103,7 @@ class LoginViewController: UIViewController {
         // Firebase login
         DataBaseManager.shared.validateNewUser(with: login) { [weak self] exsists in
             guard let self = self else { return }
-            print(exsists)
+            print(exsists,"exsists")
 //            guard !exsists else {
 //                // user already exists
 //                self.alertUserLoginError(message: "user already exists")
@@ -112,10 +114,11 @@ class LoginViewController: UIViewController {
             
             self.loginTextField.resignFirstResponder()
             self.loginTextField.text = nil
-//            guard let tabbar = UITabBarController().setupTabBar() else { return }
-//            UserDefaults().setLoggedIn(value: true)
-//            self.present(tabbar, animated: true)
-            
+            guard let tabbar = UITabBarController().setupTabBar() else { return }
+            UserDefaults().setLoggedIn(value: true)
+            UserDefaults().setUserLogin(value: login)
+            print(UserDefaults().isLoggedIn(),"Login")
+            self.present(tabbar, animated: true)
         }
         
         

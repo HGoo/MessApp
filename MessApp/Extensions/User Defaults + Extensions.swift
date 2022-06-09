@@ -1,5 +1,5 @@
 //
-//  userDefaults + Extensions.swift
+//  User Defaults + Extensions.swift
 //  MessApp
 //
 //  Created by Николай Петров on 05.06.2022.
@@ -10,7 +10,7 @@ import UIKit
 
 enum UserDefaultsKeys : String {
     case isLoggedIn
-    case userID
+    case userLogin
 }
 
 extension UserDefaults {
@@ -18,7 +18,7 @@ extension UserDefaults {
     //MARK: Check Login
     func setLoggedIn(value: Bool) {
         set(value, forKey: UserDefaultsKeys.isLoggedIn.rawValue)
-        //synchronize()
+        synchronize()
     }
     
     func isLoggedIn() -> Bool {
@@ -26,13 +26,13 @@ extension UserDefaults {
     }
     
     //MARK: Save User Data
-    func setUserID(value: Int){
-        set(value, forKey: UserDefaultsKeys.userID.rawValue)
+    func setUserLogin(value: String){
+        set(value, forKey: UserDefaultsKeys.userLogin.rawValue)
         //synchronize()
     }
     
     //MARK: Retrieve User Data
-    func getUserID() -> Int{
-        return integer(forKey: UserDefaultsKeys.userID.rawValue)
+    func getUserLogin() -> String{
+        return string(forKey: UserDefaultsKeys.userLogin.rawValue) ?? "NoName"
     }
 }

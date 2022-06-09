@@ -21,11 +21,11 @@ class AuthViewController: UIViewController {
     }
     
     private func validateAuth() {
-        print(UserDefaults().isLoggedIn())
+        print(UserDefaults().isLoggedIn(),"Auth")
         if UserDefaults().isLoggedIn() {
-//            guard let tabbar = UITabBarController().setupTabBar() else { return }
-//            UserDefaults().setLoggedIn(value: true)
-//            self.present(tabbar, animated: true)
+            guard let tabbar = UITabBarController().setupTabBar() else { return }
+            //UserDefaults().setLoggedIn(value: true)
+            self.present(tabbar, animated: true)
         } else {
             let authVC = LoginViewController()
             let nav = UINavigationController(rootViewController: authVC)
@@ -33,6 +33,9 @@ class AuthViewController: UIViewController {
             present(nav, animated: false)
         }
     }
-
-
+    
+    
+    deinit {
+        print("Deinit AuthVC")
+    }
 }
