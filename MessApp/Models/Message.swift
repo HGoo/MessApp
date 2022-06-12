@@ -7,6 +7,3 @@
 
 import Foundation
 
-struct Messeges {
-    let message: [String]?
-}

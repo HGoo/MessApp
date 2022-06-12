@@ -14,7 +14,6 @@ class ChatsListViewController: UIViewController {
         //table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "CellChatsList")
         table.translatesAutoresizingMaskIntoConstraints = false
-
         return table
     }()
     
@@ -26,15 +25,23 @@ class ChatsListViewController: UIViewController {
         return lable
     }()
     
+    private var users = [[String: String]]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.5232761502, green: 1, blue: 0.9808334708, alpha: 1)
-        
+            
         setupViews()
         setupDelegate()
         setConstraints()
         fetchonversations()
+        setUsersList()
     }
+    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        tableView.reloadData()
+//    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -42,6 +49,7 @@ class ChatsListViewController: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
     }
@@ -51,13 +59,25 @@ class ChatsListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        
         //searchController.searchBar.delegate = self
     }
     private func fetchonversations() {
         tableView.isHidden = false
     }
-
-
+    
+    private func setUsersList() {
+        DataBaseManager.shared.getAllUsers { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let userCollection):
+                self.users = userCollection
+                self.tableView.reloadData()
+            case .failure(let error):
+                print("Faild to get users: \(error)")
+            }
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -65,20 +85,18 @@ class ChatsListViewController: UIViewController {
 extension ChatsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath) //as! AlbumsTableViewCell
         
+        let user = users[indexPath.row]
         var content = cell.defaultContentConfiguration()
-        
-        content.text = "GHFJHFssfdfs"
-        
+        for name in user.values {
+            content.text = name
+        }
         cell.contentConfiguration = content
-//        let album = albums[indexPath.row]
-//        cell.configureAlbumCell(album: album)
-        //cell.accessoryType = .disclosureIndicator
         return cell
     }
     
@@ -87,23 +105,14 @@ extension ChatsListViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 
 extension ChatsListViewController: UITableViewDelegate {
-    
-    
-    
+ 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let detailViewController = DetailAlbumViewController()
-//
-//        let album = albums[indexPath.row]
-//        detailViewController.album = album
-//        detailViewController.title = album.artistName
-//        navigationController?.pushViewController(detailViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let chatVC = ChatViewController()
+        let chatVC = MessageViewController()
+        chatVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(chatVC, animated: true)
     }
-    
-  
 }
 
 extension ChatsListViewController {

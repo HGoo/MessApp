@@ -12,7 +12,6 @@ class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -24,8 +23,7 @@ class AuthViewController: UIViewController {
         print(UserDefaults().isLoggedIn(),"Auth")
         if UserDefaults().isLoggedIn() {
             guard let tabbar = UITabBarController().setupTabBar() else { return }
-            //UserDefaults().setLoggedIn(value: true)
-            self.present(tabbar, animated: true)
+            present(tabbar, animated: true)
         } else {
             let authVC = LoginViewController()
             let nav = UINavigationController(rootViewController: authVC)
@@ -33,7 +31,6 @@ class AuthViewController: UIViewController {
             present(nav, animated: false)
         }
     }
-    
     
     deinit {
         print("Deinit AuthVC")

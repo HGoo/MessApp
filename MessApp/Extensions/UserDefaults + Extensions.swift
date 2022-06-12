@@ -1,5 +1,5 @@
 //
-//  User Defaults + Extensions.swift
+//  UserDefaults + Extensions.swift
 //  MessApp
 //
 //  Created by Николай Петров on 05.06.2022.
@@ -28,7 +28,7 @@ extension UserDefaults {
     //MARK: Save User Data
     func setUserLogin(value: String){
         set(value, forKey: UserDefaultsKeys.userLogin.rawValue)
-        //synchronize()
+        synchronize()
     }
     
     //MARK: Retrieve User Data

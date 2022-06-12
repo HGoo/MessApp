@@ -16,6 +16,7 @@ extension UITabBarController {
         let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
         
+        
          
         chatVC.title = "Chats"
         favoritesVC.title = "Favorites"

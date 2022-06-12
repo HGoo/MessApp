@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-  
+    
     private let loginTextField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
@@ -24,15 +24,15 @@ class LoginViewController: UIViewController {
         return field
     }()
     
-    private let signUpButton: UIButton = {
+    private lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .link
         button.setTitle("SignUp", for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.addTarget( self,
-                         action: #selector(signUpButtonTapped),
-                         for: .touchUpInside)
+                          action: #selector(signUpButtonTapped),
+                          for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -44,10 +44,9 @@ class LoginViewController: UIViewController {
         return lable
     }()
     
-    
     private var textFieldsStackView = UIStackView()
     private var buttonsStackView = UIStackView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,11 +55,8 @@ class LoginViewController: UIViewController {
         setConstraints()
     }
     
-    
-    
     private func setupViews() {
         view.backgroundColor = .white
-        
         textFieldsStackView = UIStackView(arrangedSubviews: [loginTextField],
                                           axis: .vertical,
                                           spacing: 10,
@@ -80,8 +76,6 @@ class LoginViewController: UIViewController {
         loginTextField.delegate = self
     }
     
-    
-    
     private func alertUserLoginError(message: String = "Plase enter Username/Login to log in") {
         let alert = UIAlertController(title: "",
                                       message: message,
@@ -94,8 +88,10 @@ class LoginViewController: UIViewController {
     
     @objc private func signUpButtonTapped(){
         guard let login = loginTextField.text,
-                !login.isEmpty,
-                login.count >= 1 else {
+              !login.isEmpty,
+              login.count >= 1,
+              login != "Users"
+        else {
             alertUserLoginError()
             return
         }
@@ -104,27 +100,30 @@ class LoginViewController: UIViewController {
         DataBaseManager.shared.validateNewUser(with: login) { [weak self] exsists in
             guard let self = self else { return }
             print(exsists,"exsists")
-//            guard !exsists else {
-//                // user already exists
-//                self.alertUserLoginError(message: "user already exists")
-//                return
-//            }
+            guard !exsists else {
+                // user already exists
+                //                self.alertUserLoginError(message: "user already exists")
+                //                return
+                self.performe(login)
+                return
+            }
             
             DataBaseManager.shared.insertUser(with: ChatAppUser(userLogin: login))
             
-            self.loginTextField.resignFirstResponder()
-            self.loginTextField.text = nil
-            guard let tabbar = UITabBarController().setupTabBar() else { return }
-            UserDefaults().setLoggedIn(value: true)
-            UserDefaults().setUserLogin(value: login)
-            print(UserDefaults().isLoggedIn(),"Login")
-            self.present(tabbar, animated: true)
+            
+            self.performe(login)
         }
-        
-        
     }
     
-    
+    private func performe(_ login: String) {
+        self.loginTextField.resignFirstResponder()
+        self.loginTextField.text = nil
+        guard let tabbar = UITabBarController().setupTabBar() else { return }
+        UserDefaults().setLoggedIn(value: true)
+        UserDefaults().setUserLogin(value: login)
+        print(UserDefaults().isLoggedIn(),"Login")
+        self.present(tabbar, animated: true)
+    }
     
     deinit {
         print("Deinit LoginVC")
@@ -139,7 +138,6 @@ extension LoginViewController: UITextFieldDelegate {
         signUpButtonTapped()
         return true
     }
-    
 }
 
 //MARK: - Set Constarins
@@ -147,33 +145,24 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     
     private func setConstraints() {
-                
+        
         NSLayoutConstraint.activate([
             loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginLabel.bottomAnchor.constraint(equalTo: textFieldsStackView.topAnchor, constant: -20),
         ])
-
+        
         NSLayoutConstraint.activate([
             textFieldsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             textFieldsStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
-
+        
         NSLayoutConstraint.activate([
             buttonsStackView.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: 20),
             buttonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
-            //textFieldsStackView.centerYAnchor.constraint(equalTo: view.centerXAnchor),
-
-
         ])
-
-//        NSLayoutConstraint.activate([
-//            signUpButton.heightAnchor.constraint(equalToConstant: 40),
-//        ])
-
-        
     }
 }
