@@ -84,8 +84,7 @@ class LoginViewController: UIViewController {
               login != "Users",
               login != "_"
         else {
-            ShowAlert.shred.alertUserLoginError(controller: self)
-            //alertUserLoginError(
+            UIAlertController().alertUserLoginError(controller: self)
             return
         }
         

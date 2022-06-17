@@ -7,8 +7,7 @@
 
 import UIKit
 
-class ShowAlert {
-    static let shred = ShowAlert()
+extension UIAlertController {
     
     public func alertUserLoginError(message: String = "Plase enter Username/Login to log in",
                                     controller: UIViewController) {
@@ -18,6 +17,31 @@ class ShowAlert {
         
         alert.addAction(UIAlertAction(title: "Dismiss",
                                       style: .cancel))
+        controller.present(alert, animated:  true)
+    }
+    
+    public func alertSaveMessageToDB(titel: String = "Save this message in Favorites?",
+                                     message: String,
+                                     controller: UIViewController) {
+        
+        let alert = UIAlertController(title: titel,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) { _ in
+            CoreData.shared.save(message)
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                      style: .destructive)
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        
+        
         controller.present(alert, animated:  true)
     }
 

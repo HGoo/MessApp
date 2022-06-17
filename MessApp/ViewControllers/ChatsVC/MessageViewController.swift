@@ -50,10 +50,11 @@ class MessageViewController: UIViewController {
     
     private var textFieldsStackView = UIStackView()
     private var buttonsStackView = UIStackView()
-    private var users = [[String: String]]()
+    private var users: [[String: String]] = []
     private let currentUser = UserDefaults().getUserLogin()
-    private var messages = [[[String: String]]]()
-    private var indexPath = IndexPath()
+    private var messages: [[[String: String]]] = []
+    private var indexPath: IndexPath!
+    
     
     public var receiver: String!
     
@@ -112,7 +113,7 @@ class MessageViewController: UIViewController {
     @objc func sendMessageButtonTapped() {
         
         //guard let message = messageTextField.text else { return }
-        if messageTextField.text != nil, messageTextField.text != "" {
+        if messageTextField.text != nil, messageTextField.text?.isEmpty == false {
             createConversation(message: messageTextField.text!)
         }
         
@@ -155,10 +156,12 @@ class MessageViewController: UIViewController {
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
             
-            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            let touchPoint = longPressGestureRecognizer.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                print("longPress: \(messages[indexPath.row])")
-                print(indexPath.row)
+                let message = messages[indexPath.row]
+                guard let mess = message[1][DBNames.message.rawValue] else { return }
+                UIAlertController().alertSaveMessageToDB(message: mess,
+                                                         controller: self)
             }
         }
     }
@@ -185,13 +188,41 @@ extension MessageViewController: UITableViewDataSource {
     
 }
 
+//MARK: - Alert
+
+extension MessageViewController {
+    public func alertSaveMessageToDB(titel: String = "Add this message to Favorites?",
+                                     message: String,
+                                     controller: UIViewController,
+                                     completion: (Bool) -> ()) {
+        
+        let alert = UIAlertController(title: titel,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default)
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                      style: .destructive)
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        
+        
+        controller.present(alert, animated:  true)
+    }
+}
+
 //MARK: - UITableViewDelegate
 
 extension MessageViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        tableView.tou
+        print(indexPath.row)
         self.indexPath = indexPath
     }
     
@@ -271,7 +302,7 @@ extension MessageViewController {
         
         NSLayoutConstraint.activate([
             tableView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor, constant: 0),
-            tableView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 0),
+            //tableView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 0),
             tableView.widthAnchor.constraint(equalTo: backgroundView.widthAnchor),
             tableView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: messageTextField.topAnchor, constant: -5)

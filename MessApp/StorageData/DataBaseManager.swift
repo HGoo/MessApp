@@ -26,6 +26,7 @@ final class DataBaseManager {
     static let shared = DataBaseManager()
     
     private let database = Database.database().reference()
+    private let isOffline = Bool()
     
 }
 

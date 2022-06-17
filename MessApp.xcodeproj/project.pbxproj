@@ -18,6 +18,7 @@
 		DDBC0C2A284638C500E2EF2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDBC0C28284638C500E2EF2F /* LaunchScreen.storyboard */; };
 		DDD4693C285C357200A097C7 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD4693B285C357200A097C7 /* UILabel.swift */; };
 		DDD46941285CFCE100A097C7 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD46940285CFCE100A097C7 /* Alert.swift */; };
+		DDD46943285D2F8000A097C7 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD46942285D2F8000A097C7 /* CoreData.swift */; };
 		DDDCAAAF2847406F00784A0E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */; };
 		DDDCAAB12847408400784A0E /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB02847408400784A0E /* ChatsListViewController.swift */; };
 		DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDCAAB2284740A100784A0E /* ProfileViewController.swift */; };
@@ -46,6 +47,7 @@
 		DDBC0C2B284638C500E2EF2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDD4693B285C357200A097C7 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		DDD46940285CFCE100A097C7 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		DDD46942285D2F8000A097C7 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		DDDCAAAE2847406F00784A0E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		DDDCAAB02847408400784A0E /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		DDDCAAB2284740A100784A0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				DDDCAAC4284A902B00784A0E /* DataBaseManager.swift */,
+				DDD46942285D2F8000A097C7 /* CoreData.swift */,
 			);
 			path = StorageData;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				DD06874D284D4AAF009CC48C /* UserDefaults + Extension.swift in Sources */,
 				DD06874F284D4EF8009CC48C /* TabBarController.swift in Sources */,
 				DDDCAAB3284740A100784A0E /* ProfileViewController.swift in Sources */,
+				DDD46943285D2F8000A097C7 /* CoreData.swift in Sources */,
 				DDBC0C1F284638C400E2EF2F /* LoginViewController.swift in Sources */,
 				DDDCAABD2848EA9400784A0E /* UIStackView + Extension.swift in Sources */,
 				DDBC0C25284638C400E2EF2F /* MessApp.xcdatamodeld in Sources */,

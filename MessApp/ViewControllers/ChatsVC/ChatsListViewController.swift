@@ -35,7 +35,6 @@ class ChatsListViewController: UIViewController {
         setupViews()
         setupDelegate()
         setConstraints()
-        fetchonversations()
         setUsersList()
 
     }
@@ -60,14 +59,8 @@ class ChatsListViewController: UIViewController {
     private func setupDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-        
-        //searchController.searchBar.delegate = self
     }
-    private func fetchonversations() {
-        tableView.isHidden = false
-    }
-    
+ 
     private func setUsersList() {
         DataBaseManager.shared.getAllUsers { [weak self] result in
             guard let self = self else { return }
