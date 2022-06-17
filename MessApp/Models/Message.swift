@@ -7,3 +7,12 @@
 
 import Foundation
 
+struct Message {
+    let sender: SenderTupe
+    let messageId: String
+    let message: String
+}
+
+struct SenderTupe {
+    let inMessage: Bool
+}

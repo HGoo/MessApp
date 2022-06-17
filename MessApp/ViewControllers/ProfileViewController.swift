@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ProfileViewController: UIViewController {
     
     private lazy var  logoutButton: UIButton = {
@@ -45,8 +46,8 @@ class ProfileViewController: UIViewController {
     @objc private func logoutButtonTapped() {
         UserDefaults().setLoggedIn(value: false)
         UserDefaults().setUserLogin(value: "")
-        print(UserDefaults().isLoggedIn(),"Profile")
         let authVC = UINavigationController(rootViewController: LoginViewController())
+        DataBaseManager.shared.removeAllObservers()
         authVC.modalPresentationStyle = .fullScreen
         present(authVC, animated: true)
     }

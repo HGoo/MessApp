@@ -1,5 +1,5 @@
 //
-//  UIStackView + Extensions.swift
+//  UIStackView + Extension.swift
 //  MessApp
 //
 //  Created by Николай Петров on 02.06.2022.

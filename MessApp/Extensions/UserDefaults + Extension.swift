@@ -1,5 +1,5 @@
 //
-//  UserDefaults + Extensions.swift
+//  UserDefaults + Extension.swift
 //  MessApp
 //
 //  Created by Николай Петров on 05.06.2022.

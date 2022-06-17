@@ -10,8 +10,3 @@ import Foundation
 struct ChatAppUser {
     let userLogin: String
 }
-
-struct Messeges {
-    let inMessage: [String]?
-    let OutMessage: [String]?
-}

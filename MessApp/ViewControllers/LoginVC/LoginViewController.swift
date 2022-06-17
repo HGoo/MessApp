@@ -76,23 +76,16 @@ class LoginViewController: UIViewController {
         loginTextField.delegate = self
     }
     
-    private func alertUserLoginError(message: String = "Plase enter Username/Login to log in") {
-        let alert = UIAlertController(title: "",
-                                      message: message,
-                                      preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Dismiss",
-                                      style: .cancel))
-        present(alert, animated:  true)
-    }
-    
     @objc private func signUpButtonTapped(){
         guard let login = loginTextField.text,
               !login.isEmpty,
               login.count >= 1,
-              login != "Users"
+              login != "Users",
+              login != "_"
         else {
-            alertUserLoginError()
+            ShowAlert.shred.alertUserLoginError(controller: self)
+            //alertUserLoginError(
             return
         }
         

@@ -25,7 +25,8 @@ class ChatsListViewController: UIViewController {
         return lable
     }()
     
-    private var users = [[String: String]]()
+    private var users = [String]()
+    private var companionName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class ChatsListViewController: UIViewController {
         setConstraints()
         fetchonversations()
         setUsersList()
+
     }
     
 //    override func viewWillLayoutSubviews() {
@@ -71,12 +73,26 @@ class ChatsListViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let userCollection):
-                self.users = userCollection
+                self.sorted(userCollection)
                 self.tableView.reloadData()
             case .failure(let error):
                 print("Faild to get users: \(error)")
             }
         }
+    }
+    
+    private func sorted(_ userCollection: [[String : String]]) {
+        var usersSorted = [String]()
+        for user in userCollection {
+            if user[DBNames.userLogin.rawValue] != UserDefaults().getUserLogin() {
+                usersSorted.append(contentsOf: user.values)
+            }
+        }
+        self.users = usersSorted
+    }
+    
+    deinit {
+        print("Deinit CtatListVC")
     }
 }
 
@@ -92,10 +108,9 @@ extension ChatsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath) //as! AlbumsTableViewCell
         
         let user = users[indexPath.row]
+        
         var content = cell.defaultContentConfiguration()
-        for name in user.values {
-            content.text = name
-        }
+        content.text = user
         cell.contentConfiguration = content
         return cell
     }
@@ -108,8 +123,10 @@ extension ChatsListViewController: UITableViewDelegate {
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
+        let user = users[indexPath.row]
         let chatVC = MessageViewController()
+        chatVC.receiver = user
         chatVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(chatVC, animated: true)
     }

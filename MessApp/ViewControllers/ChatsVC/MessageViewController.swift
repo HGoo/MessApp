@@ -8,8 +8,6 @@
 import UIKit
 
 class MessageViewController: UIViewController {
-    
-    private var testMess = ["1","2","3","4","5","te32st","te32st","tes32t","t23est","tes23t","te23st","tes23t","tes23t","te2st","te32st","test","tes314ut","teyst","5","6","7","8","9"]
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +31,9 @@ class MessageViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         //table.isHidden = true
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "CellChatsList")
+        //table.allowsSelection = false
+        table.register(MessageTableViewCell.self, forCellReuseIdentifier: "CellMessage")
+        table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -43,13 +43,19 @@ class MessageViewController: UIViewController {
         //button.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         button.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private var textFieldsStackView = UIStackView()
     private var buttonsStackView = UIStackView()
+    private var users = [[String: String]]()
+    private let currentUser = UserDefaults().getUserLogin()
+    private var messages = [[[String: String]]]()
+    private var indexPath = IndexPath()
+    
+    public var receiver: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +64,7 @@ class MessageViewController: UIViewController {
         setupDelegate()
         setConstraints()
         registerKeyboardNotification()
+        setupMessages()
         //hideKeyboard()
     }
     
@@ -70,7 +77,11 @@ class MessageViewController: UIViewController {
     }
     
     private func setupViews() {
-        //title = "SignIn"
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(longPressGestureRecognizer:)))
+
+        tableView.addGestureRecognizer(longPressRecognizer)
+        
+        title = receiver
         tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
         view.backgroundColor = .white
         view.addSubview(scrollView)
@@ -98,23 +109,58 @@ class MessageViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @objc func sendButtonTapped() {
+    @objc func sendMessageButtonTapped() {
+        
+        //guard let message = messageTextField.text else { return }
+        if messageTextField.text != nil, messageTextField.text != "" {
+            createConversation(message: messageTextField.text!)
+        }
+        
         messageTextField.text = nil
     }
-}
-
-//MARK: - UITextFieldDelegate
-
-extension MessageViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            messageTextField.resignFirstResponder()
-        return true
+    private func createConversation(message: String) {
+        DataBaseManager.shared.createConversation(with: receiver, and: currentUser,
+                                                  message: message) { success in
+            if success {
+                
+            } else {
+                
+            }
+        }
+        
+        DataBaseManager.shared.createConversation(with: currentUser, and: receiver,
+                                                  message: message) { success in
+            if success {
+                
+            } else {
+                
+            }
+        }
+        
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        tableView.endEditing(true)
+    private func setupMessages() {
+        DataBaseManager.shared.getMessages(for: currentUser, with: receiver) { result in
+            switch result {
+            case .success(let messages):
+                self.messages = messages.reversed()
+                self.tableView.reloadData()
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                print("longPress: \(messages[indexPath.row])")
+                print(indexPath.row)
+            }
+        }
     }
 }
 
@@ -123,16 +169,17 @@ extension MessageViewController: UITextFieldDelegate {
 extension MessageViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        testMess.count
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellMessage", for: indexPath) as! MessageTableViewCell
         
-        var content = cell.defaultContentConfiguration()
-        content.text = testMess[indexPath.row]
-        cell.contentConfiguration = content
-        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        
+        let message = messages[indexPath.row]
+        cell.configureMessageCell(with: message, receiver)
+        
+        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
     }
     
@@ -144,6 +191,25 @@ extension MessageViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        tableView.tou
+        self.indexPath = indexPath
+    }
+    
+    
+}
+
+//MARK: - UITextFieldDelegate
+
+extension MessageViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        messageTextField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        tableView.endEditing(true)
     }
 }
 
