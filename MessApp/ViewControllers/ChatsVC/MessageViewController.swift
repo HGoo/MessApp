@@ -30,8 +30,6 @@ class MessageViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView()
-        //table.isHidden = true
-        //table.allowsSelection = false
         table.register(MessageTableViewCell.self, forCellReuseIdentifier: "CellMessage")
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -40,9 +38,7 @@ class MessageViewController: UIViewController {
     
     private lazy var  sendButton: UIButton = {
         let button = UIButton(type: .system)
-        //button.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         button.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
-        button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -53,37 +49,28 @@ class MessageViewController: UIViewController {
     private var users: [[String: String]] = []
     private let currentUser = UserDefaults().getUserLogin()
     private var messages: [[[String: String]]] = []
-    private var indexPath: IndexPath!
-    
-    
+    private var favoriteMessage: [Favorites] = []
     public var receiver: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setupDelegate()
         setConstraints()
         registerKeyboardNotification()
         setupMessages()
-        //hideKeyboard()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        textView.returnKeyType = .
-//       }
-    
-    deinit {
-        removeKeyboardNotification()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        messageTextField.returnKeyType = .continue
     }
-    
+
     private func setupViews() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(longPressGestureRecognizer:)))
-
         tableView.addGestureRecognizer(longPressRecognizer)
-        
-        title = receiver
         tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        title = receiver
         view.backgroundColor = .white
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -96,49 +83,27 @@ class MessageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         messageTextField.delegate = self
-        //passwordTextField.delegate = self
     }
-    
-    private func hideKeyboard() {
-        let tapScreen = UITapGestureRecognizer(target: self,
-                                               action: #selector(dismissKeyboard))
-        tapScreen.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapScreen)
-    }
-    
-    @objc func dismissKeyboard(sender: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
-    
-    @objc func sendMessageButtonTapped() {
-        
-        //guard let message = messageTextField.text else { return }
-        if messageTextField.text != nil, messageTextField.text?.isEmpty == false {
-            createConversation(message: messageTextField.text!)
-        }
-        
-        messageTextField.text = nil
-    }
-    
+
     private func createConversation(message: String) {
+        // Append/create messege/conversation in current user node
         DataBaseManager.shared.createConversation(with: receiver, and: currentUser,
                                                   message: message) { success in
-            if success {
-                
-            } else {
-                
+            if !success {
+                UIAlertController().alertError(message: "Message not sent",
+                                                        title: "",
+                                                        controller: self)
             }
         }
-        
+        // Append/create messege/conversation in receiver user node
         DataBaseManager.shared.createConversation(with: currentUser, and: receiver,
                                                   message: message) { success in
-            if success {
-                
-            } else {
-                
+            if !success {
+                UIAlertController().alertError(message: "Message not sent",
+                                                        title: "",
+                                                        controller: self)
             }
         }
-        
     }
     
     private func setupMessages() {
@@ -153,101 +118,105 @@ class MessageViewController: UIViewController {
         }
     }
     
+    @objc func sendMessageButtonTapped() {
+        if messageTextField.text != nil, messageTextField.text?.isEmpty == false {
+            createConversation(message: messageTextField.text!)
+        }
+        messageTextField.text = nil
+    }
+    
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            
             let touchPoint = longPressGestureRecognizer.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                let message = messages[indexPath.row]
-                guard let mess = message[1][DBNames.message.rawValue] else { return }
-                UIAlertController().alertSaveMessageToDB(message: mess,
-                                                         controller: self)
+                guard let text = messages[indexPath.row][1][DBNames.message.rawValue] else { return }
+                guard let id = messages[indexPath.row][2][DBNames.id.rawValue] else { return }
+                alertSaveMessageToDB(Message(message: text, messageId: id))
             }
         }
+    }
+    
+    deinit {
+        removeKeyboardNotification()
     }
 }
 
 //MARK: - UITableViewDataSource
 
 extension MessageViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellMessage", for: indexPath) as! MessageTableViewCell
-        
-        
         let message = messages[indexPath.row]
-        cell.configureMessageCell(with: message, receiver)
-        
+        cell.configureMessageCell(with: message)
         cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
-    }
-    
-}
-
-//MARK: - Alert
-
-extension MessageViewController {
-    public func alertSaveMessageToDB(titel: String = "Add this message to Favorites?",
-                                     message: String,
-                                     controller: UIViewController,
-                                     completion: (Bool) -> ()) {
-        
-        let alert = UIAlertController(title: titel,
-                                      message: message,
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Save",
-                                       style: .default)
-        
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                      style: .destructive)
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        
-        
-        controller.present(alert, animated:  true)
     }
 }
 
 //MARK: - UITableViewDelegate
 
 extension MessageViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath.row)
-        self.indexPath = indexPath
+    }
+}
+
+//MARK: - Alert
+
+extension MessageViewController {
+    private func alertSaveMessageToDB(_ message: Message) {
+        CoreData.shared.fetchdData { [weak self] favorites in
+            guard let self = self else { return }
+            self.favoriteMessage = favorites
+        }
+        let (isDublicateMessage, index) = checkMessage(with: message.messageId)
+        let title = isDublicateMessage ? "Delete" : "Save"
+        
+        let alert = UIAlertController(title: "\(title) this message in Favorites?",
+                                      message: message.message,
+                                      preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: title,
+                                       style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            let core = CoreData.shared
+            isDublicateMessage ? core.deleteMessage(self.favoriteMessage[index]) : core.save(message)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                      style: .destructive)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated:  true)
     }
     
-    
+    private func checkMessage(with id: String) -> (Bool, Int) {
+        var count = -1
+        for message in favoriteMessage {
+            count += 1
+            if message.id == id {
+                return (true, count)
+            }
+        }
+        return (false, count)
+    }
+
 }
 
 //MARK: - UITextFieldDelegate
 
 extension MessageViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         messageTextField.resignFirstResponder()
         return true
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        tableView.endEditing(true)
     }
 }
 
 //MARK: - Keyboard Show Hide
 
 extension MessageViewController {
-    
     private func registerKeyboardNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyBoardWillShow),
@@ -282,9 +251,7 @@ extension MessageViewController {
 //MARK: - Set Constarins
 
 extension MessageViewController {
-    
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo:  view.leadingAnchor, constant: 0),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
@@ -302,7 +269,6 @@ extension MessageViewController {
         
         NSLayoutConstraint.activate([
             tableView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor, constant: 0),
-            //tableView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 0),
             tableView.widthAnchor.constraint(equalTo: backgroundView.widthAnchor),
             tableView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: messageTextField.topAnchor, constant: -5)
@@ -323,4 +289,3 @@ extension MessageViewController {
         ]) 
     }
 }
-

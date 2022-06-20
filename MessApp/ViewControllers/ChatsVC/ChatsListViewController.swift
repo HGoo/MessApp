@@ -8,59 +8,34 @@
 import UIKit
 
 class ChatsListViewController: UIViewController {
-
     private let tableView: UITableView = {
         let table = UITableView()
-        //table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "CellChatsList")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
-    private let noConversationsLabel: UILabel = {
-        let lable = UILabel()
-        lable.text = "NO Conversations!"
-        lable.isHidden = true
-        lable.translatesAutoresizingMaskIntoConstraints = false
-        return lable
-    }()
-    
-    private var users = [String]()
-    private var companionName: String!
+    private var users: [String] = []
+    private let currentUser = UserDefaults().getUserLogin()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.5232761502, green: 1, blue: 0.9808334708, alpha: 1)
-            
         setupViews()
         setupDelegate()
         setConstraints()
         setUsersList()
-
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        tableView.reloadData()
-//    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //tableView.frame = view.bounds
-    }
-    
+        
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
-        view.addSubview(noConversationsLabel)
     }
-    
-    
+
     private func setupDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
     }
- 
+    
     private func setUsersList() {
         DataBaseManager.shared.getAllUsers { [weak self] result in
             guard let self = self else { return }
@@ -75,31 +50,25 @@ class ChatsListViewController: UIViewController {
     }
     
     private func sorted(_ userCollection: [[String : String]]) {
-        var usersSorted = [String]()
+        var usersSorted: [String] = []
         for user in userCollection {
-            if user[DBNames.userLogin.rawValue] != UserDefaults().getUserLogin() {
+            if user[DBNames.userLogin.rawValue] != currentUser {
                 usersSorted.append(contentsOf: user.values)
             }
         }
-        self.users = usersSorted
-    }
-    
-    deinit {
-        print("Deinit CtatListVC")
+        users = usersSorted
     }
 }
 
 //MARK: - UITableViewDataSource
 
 extension ChatsListViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath) //as! AlbumsTableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellChatsList", for: indexPath)
         let user = users[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
@@ -113,22 +82,18 @@ extension ChatsListViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 
 extension ChatsListViewController: UITableViewDelegate {
- 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
         let user = users[indexPath.row]
-        let chatVC = MessageViewController()
-        chatVC.receiver = user
-        chatVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(chatVC, animated: true)
+        let messageVC = MessageViewController()
+        messageVC.receiver = user
+        messageVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(messageVC, animated: true)
     }
 }
 
 extension ChatsListViewController {
-    
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),

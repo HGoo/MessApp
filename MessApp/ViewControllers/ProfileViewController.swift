@@ -9,7 +9,6 @@ import UIKit
 
 
 class ProfileViewController: UIViewController {
-    
     private lazy var  logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .link
@@ -17,7 +16,7 @@ class ProfileViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.addTarget( self,
-                         action: #selector(logoutButtonTapped),
+                         action: #selector(logOutButtonTapped),
                          for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -42,46 +41,33 @@ class ProfileViewController: UIViewController {
         view.addSubview(userNameLabel)
         view.addSubview(logoutButton)
     }
-
-    @objc private func logoutButtonTapped() {
+    
+    @objc private func logOutButtonTapped() {
         UserDefaults().setLoggedIn(value: false)
-        UserDefaults().setUserLogin(value: "")
+        UserDefaults().setUserLogin(value: UserDefaultsKeys.defaultName.rawValue)
         let authVC = UINavigationController(rootViewController: LoginViewController())
         DataBaseManager.shared.removeAllObservers()
         authVC.modalPresentationStyle = .fullScreen
         present(authVC, animated: true)
+        print(UserDefaults().isLoggedIn())
     }
-    
-    deinit {
-        print("Deinit ProfileVC")
-    }
-
 }
-
 
 //MARK: - Set Constarins
 
 extension ProfileViewController {
-    
     private func setConstraints() {
-                
         NSLayoutConstraint.activate([
             userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             userNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
         ])
-
-      
-
+        
         NSLayoutConstraint.activate([
             logoutButton.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
 
         ])
-
-
-        
     }
 }
-

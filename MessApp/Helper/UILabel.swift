@@ -2,7 +2,7 @@
 //  UILabel.swift
 //  MessApp
 //
-//  Created by Николай Петров on 16.06.2022.
+//  Created by Николай Петров on 15.06.2022.
 //
 
 import UIKit
@@ -12,8 +12,10 @@ class EdgeInsetLabel: UILabel {
         didSet { invalidateIntrinsicContentSize() }
     }
 
-    override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-        let textRect = super.textRect(forBounds: bounds, limitedToNumberOfLines: numberOfLines)
+    override func textRect(forBounds bounds: CGRect,
+                           limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        let textRect = super.textRect(forBounds: bounds,
+                                      limitedToNumberOfLines: numberOfLines)
         let invertedInsets = UIEdgeInsets(top: -textInsets.top,
                                           left: -textInsets.left,
                                           bottom: -textInsets.bottom,

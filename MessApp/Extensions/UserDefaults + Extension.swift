@@ -7,32 +7,29 @@
 
 import UIKit
 
-
 enum UserDefaultsKeys : String {
     case isLoggedIn
     case userLogin
+    case defaultName
 }
 
 extension UserDefaults {
-    
-    //MARK: Check Login
-    func setLoggedIn(value: Bool) {
+    public func setLoggedIn(value: Bool) {
         set(value, forKey: UserDefaultsKeys.isLoggedIn.rawValue)
-        synchronize()
     }
     
-    func isLoggedIn() -> Bool {
+    public func isLoggedIn() -> Bool {
         return bool(forKey: UserDefaultsKeys.isLoggedIn.rawValue)
     }
     
-    //MARK: Save User Data
-    func setUserLogin(value: String){
+    public func setUserLogin(value: String, completion: (() -> ())? = nil){
         set(value, forKey: UserDefaultsKeys.userLogin.rawValue)
-        synchronize()
+        if completion != nil {
+            completion!()
+        }
     }
     
-    //MARK: Retrieve User Data
-    func getUserLogin() -> String{
-        return string(forKey: UserDefaultsKeys.userLogin.rawValue) ?? "NoName"
+    public func getUserLogin() -> String {
+        return string(forKey: UserDefaultsKeys.userLogin.rawValue) ?? UserDefaultsKeys.defaultName.rawValue
     }
 }

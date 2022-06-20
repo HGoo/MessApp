@@ -8,62 +8,53 @@
 import UIKit
 
 class FavoritesViewController: UIViewController, UITableViewDelegate {
-    
-    
     private let tableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "CellFavorites")
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-
-    public var favoriteMessage: [Favorites] = []
-
+    
+    private var favoriteMessage: [Favorites] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-        
-        print(favoriteMessage)
         setupViews()
         setupDelegate()
         setConstraints()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        CoreData.shared.fetchdData()
-        CoreData.shared.favoriteMessage = self.favoriteMessage
+        CoreData.shared.fetchdData { [weak self] favotites in
+            guard let self = self else { return }
+            self.favoriteMessage = favotites
+            self.tableView.reloadData()
+        }
     }
     
     private func setupViews() {
+        title = "Favorites"
         view.backgroundColor = .white
         view.addSubview(tableView)
-        
     }
     
     private func setupDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-        
-        //searchController.searchBar.delegate = self
     }
 }
 
+//MARK: - UITableViewDataSource
 
-extension FavoritesViewController : UITableViewDataSource {
+extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteMessage.count
+        favoriteMessage.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellFavorites", for: indexPath)
-        
         let message = favoriteMessage[indexPath.row].message
-        
         var content = cell.defaultContentConfiguration()
         content.text = message
         cell.contentConfiguration = content
@@ -71,11 +62,63 @@ extension FavoritesViewController : UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 
 extension FavoritesViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: -  Add swipe and tap action
+
+extension FavoritesViewController {
+    private func delete(rowIndexPathAt  indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, _) in
+            guard let self = self else { return }
+            self.alertDeleteMessage(indexPath)
+        }
+        return action
+    }
     
-    private func setConstraints() {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        let delete = delete(rowIndexPathAt: indexPath)
+        let swipe = UISwipeActionsConfiguration(actions: [delete])
+        
+        return swipe
+    }
+}
+
+// MARK: - Alert
+
+extension FavoritesViewController {
+    private func alertDeleteMessage(_ indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Are you sure you want to remove message?",
+                                      message: "",
+                                      preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete",
+                                         style: .destructive, handler: { [weak self ]_ in
+            guard let self = self else { return }
+            let message = self.favoriteMessage[indexPath.row]
+            CoreData.shared.deleteMessage(message) { [weak self] in
+                guard let self = self else { return }
+                self.favoriteMessage.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .destructive)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated:  true)
+    }
+}
+
+extension FavoritesViewController {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),

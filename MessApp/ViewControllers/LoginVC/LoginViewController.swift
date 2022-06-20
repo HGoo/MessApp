@@ -8,7 +8,6 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
     private let loginTextField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
@@ -49,7 +48,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setupDelegate()
         setConstraints()
@@ -76,56 +74,41 @@ class LoginViewController: UIViewController {
         loginTextField.delegate = self
     }
     
-        
     @objc private func signUpButtonTapped(){
         guard let login = loginTextField.text,
               !login.isEmpty,
-              login.count >= 1,
               login != "Users",
-              login != "_"
+              login != UserDefaultsKeys.defaultName.rawValue
         else {
-            UIAlertController().alertUserLoginError(controller: self)
+            UIAlertController().alertError(controller: self)
             return
         }
         
-        // Firebase login
-        DataBaseManager.shared.validateNewUser(with: login) { [weak self] exsists in
+        DataBaseManager.shared.validateUser(with: login) { [weak self] exsists in
             guard let self = self else { return }
-            print(exsists,"exsists")
             guard !exsists else {
-                // user already exists
-                //                self.alertUserLoginError(message: "user already exists")
-                //                return
-                self.performe(login)
+                self.successesEntry(with: login)
                 return
             }
-            
-            DataBaseManager.shared.insertUser(with: ChatAppUser(userLogin: login))
-            
-            
-            self.performe(login)
+            DataBaseManager.shared.insertNewUser(with: ChatAppUser(userLogin: login))
+            self.successesEntry(with: login)
         }
     }
     
-    private func performe(_ login: String) {
-        self.loginTextField.resignFirstResponder()
-        self.loginTextField.text = nil
-        guard let tabbar = UITabBarController().setupTabBar() else { return }
+    private func successesEntry(with login: String) {
         UserDefaults().setLoggedIn(value: true)
         UserDefaults().setUserLogin(value: login)
-        print(UserDefaults().isLoggedIn(),"Login")
-        self.present(tabbar, animated: true)
+        loginTextField.resignFirstResponder()
+        loginTextField.text = nil
+        guard let tabbar = UITabBarController().setupTabBar() else { return }
+        present(tabbar, animated: true)
     }
     
-    deinit {
-        print("Deinit LoginVC")
-    }
 }
 
 //MARK: - UITextFieldDelegate
 
 extension LoginViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         signUpButtonTapped()
         return true
@@ -135,9 +118,7 @@ extension LoginViewController: UITextFieldDelegate {
 //MARK: - Set Constarins
 
 extension LoginViewController {
-    
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),

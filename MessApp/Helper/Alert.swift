@@ -8,10 +8,10 @@
 import UIKit
 
 extension UIAlertController {
-    
-    public func alertUserLoginError(message: String = "Plase enter Username/Login to log in",
+    public func alertError(message: String = "Plase enter Username/Login to log in",
+                                    title: String = "Wrong Username",
                                     controller: UIViewController) {
-        let alert = UIAlertController(title: "",
+        let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
         
@@ -19,30 +19,4 @@ extension UIAlertController {
                                       style: .cancel))
         controller.present(alert, animated:  true)
     }
-    
-    public func alertSaveMessageToDB(titel: String = "Save this message in Favorites?",
-                                     message: String,
-                                     controller: UIViewController) {
-        
-        let alert = UIAlertController(title: titel,
-                                      message: message,
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Save",
-                                       style: .default) { _ in
-            CoreData.shared.save(message)
-        }
-        
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                      style: .destructive)
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        
-        
-        controller.present(alert, animated:  true)
-    }
-
 }

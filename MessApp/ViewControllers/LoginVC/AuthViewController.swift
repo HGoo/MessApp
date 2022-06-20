@@ -9,7 +9,6 @@ import UIKit
 import FirebaseDatabase
 
 class AuthViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -20,7 +19,6 @@ class AuthViewController: UIViewController {
     }
     
     private func validateAuth() {
-        print(UserDefaults().isLoggedIn(),"Auth")
         if UserDefaults().isLoggedIn() {
             guard let tabbar = UITabBarController().setupTabBar() else { return }
             present(tabbar, animated: true)
@@ -30,9 +28,5 @@ class AuthViewController: UIViewController {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: false)
         }
-    }
-    
-    deinit {
-        print("Deinit AuthVC")
     }
 }
