@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ProfileViewController: UIViewController {
     private lazy var  logoutButton: UIButton = {
         let button = UIButton(type: .system)
