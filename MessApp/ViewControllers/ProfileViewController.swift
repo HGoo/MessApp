@@ -15,26 +15,26 @@ class ProfileViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.addTarget( self,
-                         action: #selector(logOutButtonTapped),
-                         for: .touchUpInside)
+                          action: #selector(logOutButtonTapped),
+                          for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private let userNameLabel: UILabel = {
         let lable = UILabel()
         lable.text = "Name"
         lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setConstraints()
         userNameLabel.text = UserDefaults().getUserLogin()
     }
-
+    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(userNameLabel)
@@ -68,7 +68,7 @@ extension ProfileViewController {
             logoutButton.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
-
+            
         ])
     }
 }

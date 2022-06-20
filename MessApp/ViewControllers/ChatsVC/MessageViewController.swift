@@ -64,7 +64,7 @@ class MessageViewController: UIViewController {
         super.viewWillAppear(animated)
         messageTextField.returnKeyType = .continue
     }
-
+    
     private func setupViews() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(longPressGestureRecognizer:)))
         tableView.addGestureRecognizer(longPressRecognizer)
@@ -84,15 +84,15 @@ class MessageViewController: UIViewController {
         tableView.dataSource = self
         messageTextField.delegate = self
     }
-
+    
     private func createConversation(message: String) {
         // Append/create messege/conversation in current user node
         DataBaseManager.shared.createConversation(with: receiver, and: currentUser,
                                                   message: message) { success in
             if !success {
                 UIAlertController().alertError(message: "Message not sent",
-                                                        title: "",
-                                                        controller: self)
+                                               title: "",
+                                               controller: self)
             }
         }
         // Append/create messege/conversation in receiver user node
@@ -100,8 +100,8 @@ class MessageViewController: UIViewController {
                                                   message: message) { success in
             if !success {
                 UIAlertController().alertError(message: "Message not sent",
-                                                        title: "",
-                                                        controller: self)
+                                               title: "",
+                                               controller: self)
             }
         }
     }
@@ -189,7 +189,7 @@ extension MessageViewController {
             isDublicateMessage ? core.deleteMessage(self.favoriteMessage[index]) : core.save(message)
         }
         let cancelAction = UIAlertAction(title: "Cancel",
-                                      style: .destructive)
+                                         style: .destructive)
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         self.present(alert, animated:  true)
@@ -205,7 +205,7 @@ extension MessageViewController {
         }
         return (false, count)
     }
-
+    
 }
 
 //MARK: - UITextFieldDelegate

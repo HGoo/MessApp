@@ -104,8 +104,8 @@ extension DataBaseManager {
             let conversationWith = DBNames.conversations.rawValue
             
             let conversationData = [[DBNames.source.rawValue: currentUser],
-                                       [DBNames.message.rawValue: message],
-                                       [DBNames.id.rawValue: idMessage]]
+                                    [DBNames.message.rawValue: message],
+                                    [DBNames.id.rawValue: idMessage]]
             
             if var conversations = userNode["\(conversationWith)\(receiver)"] as? [[[String: String]]] {
                 // Append message to conversation

@@ -50,7 +50,6 @@ class CoreData  {
     }
     
     public func deleteAllMessage(completion: (() -> ())) {
-    
         for message in favoriteMessage {
             manageContext.delete(message)
         }

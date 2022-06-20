@@ -9,12 +9,12 @@ import UIKit
 
 extension UITabBarController {
     
-     func setupTabBar() -> UITabBarController? {
+    func setupTabBar() -> UITabBarController? {
         let tabBarVC = UITabBarController()
         let chatVC = UINavigationController(rootViewController: ChatsListViewController())
         let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
-   
+        
         chatVC.title = "Chats"
         favoritesVC.title = "Favorites"
         profileVC.title = "Profile"
@@ -25,7 +25,7 @@ extension UITabBarController {
         for name in 0..<items.count {
             items[name].image = UIImage(systemName: images[name])
         }
-         
+        
         tabBarVC.tabBar.tintColor = .black
         tabBarVC.modalPresentationStyle = .fullScreen
         return tabBarVC

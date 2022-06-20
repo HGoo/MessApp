@@ -17,7 +17,7 @@ class ChatsListViewController: UIViewController {
     
     private var users: [String] = []
     private let currentUser = UserDefaults().getUserLogin()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -25,12 +25,12 @@ class ChatsListViewController: UIViewController {
         setConstraints()
         setUsersList()
     }
-        
+    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
     }
-
+    
     private func setupDelegate() {
         tableView.delegate = self
         tableView.dataSource = self

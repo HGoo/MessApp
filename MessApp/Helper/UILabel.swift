@@ -11,7 +11,7 @@ class EdgeInsetLabel: UILabel {
     var textInsets = UIEdgeInsets.zero {
         didSet { invalidateIntrinsicContentSize() }
     }
-
+    
     override func textRect(forBounds bounds: CGRect,
                            limitedToNumberOfLines numberOfLines: Int) -> CGRect {
         let textRect = super.textRect(forBounds: bounds,
@@ -22,7 +22,7 @@ class EdgeInsetLabel: UILabel {
                                           right: -textInsets.right)
         return textRect.inset(by: invertedInsets)
     }
-
+    
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: textInsets))
     }

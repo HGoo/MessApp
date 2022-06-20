@@ -9,8 +9,8 @@ import UIKit
 
 extension UIAlertController {
     public func alertError(message: String = "Plase enter Username/Login to log in",
-                                    title: String = "Wrong Username",
-                                    controller: UIViewController) {
+                           title: String = "Wrong Username",
+                           controller: UIViewController) {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
