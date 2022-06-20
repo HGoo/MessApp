@@ -48,4 +48,17 @@ class CoreData  {
             print(error.localizedDescription)
         }
     }
+    
+    public func deleteAllMessage(completion: (() -> ())) {
+    
+        for message in favoriteMessage {
+            manageContext.delete(message)
+        }
+        do {
+            try manageContext.save()
+            completion()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }

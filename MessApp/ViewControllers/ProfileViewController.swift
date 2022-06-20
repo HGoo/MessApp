@@ -45,11 +45,13 @@ class ProfileViewController: UIViewController {
     @objc private func logOutButtonTapped() {
         UserDefaults().setLoggedIn(value: false)
         UserDefaults().setUserLogin(value: UserDefaultsKeys.defaultName.rawValue)
-        let authVC = UINavigationController(rootViewController: LoginViewController())
         DataBaseManager.shared.removeAllObservers()
-        authVC.modalPresentationStyle = .fullScreen
-        present(authVC, animated: true)
-        print(UserDefaults().isLoggedIn())
+        CoreData.shared.deleteAllMessage {
+            let authVC = UINavigationController(rootViewController: LoginViewController())
+            authVC.modalPresentationStyle = .fullScreen
+            present(authVC, animated: true)
+            print(UserDefaults().isLoggedIn())
+        }
     }
 }
 

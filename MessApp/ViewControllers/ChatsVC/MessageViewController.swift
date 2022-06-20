@@ -23,7 +23,7 @@ class MessageViewController: UIViewController {
     private let messageTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Message"
+        textField.placeholder = "Type your message..."
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -44,10 +44,9 @@ class MessageViewController: UIViewController {
         return button
     }()
     
+    private let currentUser = UserDefaults().getUserLogin()
     private var textFieldsStackView = UIStackView()
     private var buttonsStackView = UIStackView()
-    private var users: [[String: String]] = []
-    private let currentUser = UserDefaults().getUserLogin()
     private var messages: [[[String: String]]] = []
     private var favoriteMessage: [Favorites] = []
     public var receiver: String!
@@ -69,6 +68,7 @@ class MessageViewController: UIViewController {
     private func setupViews() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(longPressGestureRecognizer:)))
         tableView.addGestureRecognizer(longPressRecognizer)
+        
         tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
         title = receiver
         view.backgroundColor = .white
@@ -129,8 +129,10 @@ class MessageViewController: UIViewController {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
             let touchPoint = longPressGestureRecognizer.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                guard let text = messages[indexPath.row][1][DBNames.message.rawValue] else { return }
-                guard let id = messages[indexPath.row][2][DBNames.id.rawValue] else { return }
+                let message = DBMessageField.text.rawValue
+                let id = DBMessageField.id.rawValue
+                guard let text = messages[indexPath.row][message][DBNames.message.rawValue] else { return }
+                guard let id = messages[indexPath.row][id][DBNames.id.rawValue] else { return }
                 alertSaveMessageToDB(Message(message: text, messageId: id))
             }
         }
@@ -173,6 +175,7 @@ extension MessageViewController {
             guard let self = self else { return }
             self.favoriteMessage = favorites
         }
+        
         let (isDublicateMessage, index) = checkMessage(with: message.messageId)
         let title = isDublicateMessage ? "Delete" : "Save"
         

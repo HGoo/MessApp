@@ -74,10 +74,19 @@ class LoginViewController: UIViewController {
         loginTextField.delegate = self
     }
     
-    @objc private func signUpButtonTapped(){
+    private func successesEntry(with login: String) {
+        UserDefaults().setLoggedIn(value: true)
+        UserDefaults().setUserLogin(value: login)
+        loginTextField.resignFirstResponder()
+        loginTextField.text = nil
+        guard let tabbar = UITabBarController().setupTabBar() else { return }
+        present(tabbar, animated: true)
+    }
+    
+    @objc private func signUpButtonTapped() {
         guard let login = loginTextField.text,
               !login.isEmpty,
-              login != "Users",
+              login != DBNames.users.rawValue,
               login != UserDefaultsKeys.defaultName.rawValue
         else {
             UIAlertController().alertError(controller: self)
@@ -94,16 +103,6 @@ class LoginViewController: UIViewController {
             self.successesEntry(with: login)
         }
     }
-    
-    private func successesEntry(with login: String) {
-        UserDefaults().setLoggedIn(value: true)
-        UserDefaults().setUserLogin(value: login)
-        loginTextField.resignFirstResponder()
-        loginTextField.text = nil
-        guard let tabbar = UITabBarController().setupTabBar() else { return }
-        present(tabbar, animated: true)
-    }
-    
 }
 
 //MARK: - UITextFieldDelegate
